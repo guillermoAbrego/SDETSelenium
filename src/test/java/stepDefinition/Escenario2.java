@@ -8,8 +8,6 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.interactions.Actions;
 import org.testng.Assert;
 
-import cucumber.api.java.After;
-import cucumber.api.java.Before;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
@@ -18,17 +16,14 @@ public class Escenario2 {
 	
 	WebDriver driver;
 	
-	@Before
-	public void setup() {
+	@Given("^On home page of application$")
+	
+	public void on_home_page_of_application() throws Throwable {
 		System.setProperty("webdriver.chrome.driver", "src/main/resources/chromedriver.exe");
 		driver = new ChromeDriver();
 		driver.manage().window().maximize();
 		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 		driver.get("https://opensource-demo.orangehrmlive.com/index.php/auth/login");
-	}
-	
-	@Given("^On home page of application$")
-	public void on_home_page_of_application() throws Throwable {
 		driver.findElement(By.id("logInPanelHeading")).isDisplayed();
 	}
 
@@ -60,10 +55,4 @@ public class Escenario2 {
 		String actualText = driver.findElement(By.id("menu_admin_viewJobTitleList")).getText();
 		Assert.assertEquals(actualText, "Job Titles");
 	}
-	
-	@After
-	public void tear() {
-		driver.close();
-	}
-
 }
